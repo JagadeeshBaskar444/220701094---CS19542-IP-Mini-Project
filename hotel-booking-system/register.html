@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Hotel Booking System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo">HotelBooking</div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="booking.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="register-container">
+        <h2>Register</h2>
+        <form id="register-form" method="POST" action="register.php">
+
+            <label for="name">Full Name:</label>
+            <input type="text" id="register-name" placeholder="Enter your full name" required>
+        
+            <label for="email">Email:</label>
+            <input type="email" id="register-email" placeholder="Enter your email" required>
+        
+            <label for="password">Password:</label>
+            <input type="password" id="register-password" placeholder="Enter your password" required>
+        
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="register-confirm-password" placeholder="Confirm your password" required>
+        
+            <button type="submit" class="btn">Register</button>
+            <p id="register-message" style="color: green;"></p>
+        </form>
+        
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+
+    <!-- JavaScript for handling registration -->
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            const messageElement = document.getElementById('register-message');
+
+            // Simple validation for matching passwords
+            if (password !== confirmPassword) {
+                messageElement.style.color = 'red';
+                messageElement.textContent = "Passwords do not match!";
+                return;
+            }
+
+            // Store the user's name in localStorage
+            localStorage.setItem('username', name);
+
+            // Redirect to home page
+            window.location.href = "home.html";
+        });
+    </script>
+</body>
+</html>

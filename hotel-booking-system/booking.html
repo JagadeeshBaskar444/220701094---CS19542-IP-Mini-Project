@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - Hotel Booking System</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <script src="js/script.js" defer></script>
+
+    <style>
+        /* Add a background image */
+        body {
+            background-image: url('frontend/img/login_image.jpg'); /* Replace with your image path */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+        }
+
+        .booking-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Transparent white background for better readability */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 50px auto;
+        }
+
+        .booking-form input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">HotelBooking</div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="booking.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="rooms">
+        <div class="booking-container">
+            <h2>Book Your Stay</h2>
+    
+            <!-- Trigger Book Now Form -->
+            <button class="btn btn-primary" onclick="openBookingForm()">Book Now</button>
+    
+            <!-- Booking Form (Hidden Initially) -->
+            <div id="bookingForm" class="booking-form" style="display: none;">
+                <form id="booking-form" action="payment.html" method="POST" onsubmit="return validateBookingForm()">
+
+                    
+                    <div class="form-group">
+                        <label for="people">Number of People:</label>
+                        <input type="number" class="form-control" id="people" name="people" min="1" max="10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkin">Check-in Date:</label>
+                        <input type="date" class="form-control" id="checkin" name="checkin" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkout">Check-out Date:</label>
+                        <input type="date" class="form-control" id="checkout" name="checkout" required>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="food" name="food">
+                        <label class="form-check-label" for="food">Do you need food service?</label>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for Bootstrap & Form Validation -->
+    <script>
+        function openBookingForm() {
+            document.getElementById("bookingForm").style.display = "block";
+        }
+
+        function validateBookingForm() {
+            const checkin = new Date(document.getElementById('checkin').value);
+            const checkout = new Date(document.getElementById('checkout').value);
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (checkin >= checkout) {
+                alert("Check-out date must be later than check-in date.");
+                submitBtn.classList.remove("btn-primary");
+                submitBtn.classList.add("btn-danger"); // Change button color to red for error
+                return false;
+            } else {
+                submitBtn.classList.remove("btn-danger");
+                submitBtn.classList.add("btn-success"); // Change button color to green for success
+                return true;
+            }
+        }
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

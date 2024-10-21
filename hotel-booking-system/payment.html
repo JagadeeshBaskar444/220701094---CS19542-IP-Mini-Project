@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Hotel Booking System</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">HotelBooking</div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="booking.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="payment-container">
+        <h2>Complete Your Payment</h2>
+
+        <form action="confirmation.html" method="POST" onsubmit="return validatePayment()">
+
+            <!-- Hidden booking details -->
+            <input type="hidden" id="people" name="people" value="">
+            <input type="hidden" id="checkin" name="checkin" value="">
+            <input type="hidden" id="checkout" name="checkout" value="">
+            <input type="hidden" id="food" name="food" value="">
+
+            <label for="name">Name on Card:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="card_number">Card Number:</label>
+            <input type="text" id="card_number" name="card_number" required>
+
+            <label for="expiry">Expiry Date:</label>
+            <input type="month" id="expiry" name="expiry" required>
+
+            <label for="cvv">CVV:</label>
+            <input type="password" id="cvv" name="cvv" required>
+
+            <label for="payment_method">Payment Method:</label>
+            <select id="payment_method" name="payment_method" required>
+                <option value="credit_card">Credit Card</option>
+                <option value="debit_card">Debit Card</option>
+                <option value="paypal">PayPal</option>
+            </select>
+
+            <button type="submit" class="btn">Confirm Payment</button>
+        </form>
+    </div>
+
+    <script>
+        // Populate the hidden booking details from the previous form
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            document.getElementById('people').value = urlParams.get('people');
+            document.getElementById('checkin').value = urlParams.get('checkin');
+            document.getElementById('checkout').value = urlParams.get('checkout');
+            document.getElementById('food').value = urlParams.get('food') ? "Yes" : "No";
+        };
+
+        function validatePayment() {
+            const cardNumber = document.getElementById('card_number').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (cardNumber.length !== 16) {
+                alert("Please enter a valid 16-digit card number.");
+                return false;
+            }
+            if (cvv.length !== 3) {
+                alert("Please enter a valid 3-digit CVV.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+</body>
+</html>
